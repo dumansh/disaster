@@ -2,7 +2,7 @@
 
 - make virtual env using ```python -m venv venv```
 
-- Install necessary packages ```pip install -r requiremts.txt``` 
+- Install necessary packages ```pip install -r requirements.txt``` 
 
 - make ```.env``` file
 - copy ```.env.example``` to ```.env``` file
