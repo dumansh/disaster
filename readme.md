@@ -10,3 +10,6 @@
 - migrate database ```python manage.py migrate```
 
 - run the app ```python manage.py runserver```
+
+
+This is a test to for Github Desktop pushing changes
