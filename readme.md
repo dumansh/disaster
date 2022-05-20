@@ -1,7 +1,9 @@
 ## How to setup the project
 
 - make virtual env using ```python -m venv venv```
-
+- activate virtual env
+  - Linux ```source venv/bin/activate```
+  - Windows ```./venv/scripts/activate```
 - Install necessary packages ```pip install -r requirements.txt``` 
 
 - make ```.env``` file
