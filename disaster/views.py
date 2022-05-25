@@ -23,7 +23,6 @@ def login_page(request):
                 # remembers the user next time
                 return redirect("dashboard")
 
-
     form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
@@ -32,7 +31,7 @@ def logout_page(request):
     logout(request)
     return redirect('login')
 
+
 @login_required(login_url='/login')
 def dashboard(request):
     return render(request, "dashboard.html")
-
