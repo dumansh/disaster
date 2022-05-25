@@ -1,1 +1,21 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam at dolorem eligendi eum exercitationem ipsa magnam quaerat tenetur voluptate. At aut autem consectetur culpa debitis id nobis, non quibusdam vel?
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" action="">
+      {% csrf_token %}
+        <table>
+             {{form }}
+            <tr>
+                <td></td>
+                <td><button type="submit">Login</button></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+{% endblock %}
