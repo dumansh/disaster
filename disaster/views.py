@@ -34,7 +34,6 @@ def login_page(request):
                 # remembers the user next time
                 return redirect("dashboard")
 
-
     form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
@@ -116,3 +115,4 @@ def password_change(request, uid, token):
         'form': form
     }
     return render(request, 'password_change.html', context=context)
+
