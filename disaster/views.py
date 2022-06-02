@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, PasswordChangeForm, SetPasswordForm
@@ -12,6 +13,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
@@ -78,7 +80,8 @@ def password_reset(request):
                         send_mail(subject, email, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
-                    return HttpResponse("Email Sent")
+                    messages.info(request, 'Email Sent')
+                    return redirect("login")
 
     form = PasswordResetForm()
     return render(request, 'password_reset.html', context={"form": form})
@@ -99,16 +102,19 @@ def password_change(request, uid, token):
         user = None
         return HttpResponse("Invalid link")
     if not PasswordResetTokenGenerator().check_token(user, token):
-        return HttpResponse("Invalid link")
+        messages.warning(request, 'Invalid Link')
+        print("I am here")
+        return redirect('login')
     if request.method == "POST":
         form=SetPasswordForm(user, request.POST)
-        print(form.data["new_password1"])
         if not form.is_valid():
-            return HttpResponse("invalid password")
+            messages.warning(request, 'Invalid Password')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         password = form.cleaned_data['new_password1']
         user.set_password(password)
         user.save()
-        return HttpResponse("Password reset Success")
+        login(request, user)
+        return redirect('dashboard')
 
     form = SetPasswordForm(user)
     context = {

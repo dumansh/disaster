@@ -10,6 +10,7 @@
 
 {% block content %}
 <div class="container">
+{% include 'messages.html' %}
     <form method="POST" class="form" id="login">
         {% csrf_token %}
         <h1 class="form__title">Disaster Project Login Page</h1>
@@ -32,7 +33,7 @@
         <button class="form__button" type="submit">LOGIN</button>
 
         <p class="form__text">
-            <a href="#" class="form__link">Forgot password?</a>
+            <a href="{% url 'forgot_password' %}" class="form__link">Forgot password?</a>
         </p>
 
     </form>

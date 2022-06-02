@@ -23,7 +23,7 @@ urlpatterns = [
     path('login/', views.login_page, name='login'),
     path('logout/', views.logout_page, name='logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('forgot-password', views.password_reset),
+    path('forgot-password', views.password_reset, name="forgot_password"),
     # path('forgot-password', views.password_reset, name='passwordReset'),
     path('password-reset/<uid>/<token>/', views.password_change),
     path('admin/', admin.site.urls),
