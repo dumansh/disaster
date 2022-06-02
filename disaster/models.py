@@ -12,3 +12,4 @@ class Labor(models.Model):
     default_rates = models.IntegerField(blank=False)
     active = models.CharField(max_length=3, choices=IS_ACTIVE, default='Y')
 
+    disasterLabor = models.Manager()
