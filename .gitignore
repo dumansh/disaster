@@ -3,3 +3,4 @@ env
 .idea
 .env
 *__pycache__*
+personal_notes.txt
