@@ -1,0 +1,37 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}New Equipment Class{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1>Add New Equipment Class</h1>
+    </div>
+    <div class="panel-body">
+        <form method="POST" action="">
+
+            <div class="form-group">
+                <label for="equipment_class"> Labor Class: </label>
+                <input type="text" id="equipment_class" name="equipment_class" value="{{ request.form['equipment_class'] }}"> <br>
+            </div>
+
+            <div class="form-group">
+                <label for="billing_code"> Billing Codes: </label>
+                <input type="text" id="billing_code" name="billing_code" value="{{ request.form['billing_code'] }}"><br>
+            </div>
+
+            <div class="form-group">
+                <label for="default_rates">Default Rates(Hourly): </label>
+                <input type="text" id="default_rates" name="default_rates" value="{{ request.form['default_rates'] }}"><br>
+            </div>
+
+            <div class="form-group">
+                <input type="clear" value="Clear">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+
+        </form>
+    </div>
+</div>
