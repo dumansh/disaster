@@ -1,0 +1,21 @@
+{% extends 'base_dashboard.html' %}
+
+{% block content%}
+<table class="table">
+    <th>Supply Code</th>
+     <th>Billing Code</th>
+    <th>Hourly Rate</th>
+     <th>Active</th>
+    <th>Edit</th>
+    {% for supply in supplies %}
+        <tr>
+            <td>{{supply.supply_code}}</td>
+             <td>{{supply.billing_code}}</td>
+            <td>{{supply.default_rates}}</td>
+             <td>{{supply.active}}</td>
+            <td><a href="#">Edit</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

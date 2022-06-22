@@ -26,7 +26,7 @@ urlpatterns = [
     path('forgot-password', views.password_reset, name="forgot_password"),
     # path('forgot-password', views.password_reset, name='passwordReset'),
     path('password-reset/<uid>/<token>/', views.password_change),
-    path("supplycode/", include('supplycode.urls')),
+    path("", include('supplycode.urls')),
     path('admin/', admin.site.urls),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

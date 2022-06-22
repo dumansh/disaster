@@ -1,11 +1,12 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView, UpdateView, ListView
 
-from .forms import NewLaborClassForm
-from .models import Labor
+from .forms import NewLaborClassForm, NewSuppliesClassForm
+from .models import Labor, Supply
 
 
 def AddNewLaborClass(request):
@@ -59,3 +60,28 @@ class LaborUpdateView(UpdateView):
     context_object_name = 'labor'
     fields = ['labor_class', 'billing_code', 'default_rates', 'active']
     success_url = reverse_lazy('dashboard')
+
+
+def SupplyListView(request):
+    supplies = Supply.objects.all()
+    print(supplies[0])
+    context={
+        "supplies": supplies
+    }
+    return render(request, 'supply.html',context)
+
+def SupplyCreate(request):
+    if request.method == "POST":
+        form = NewSuppliesClassForm(request.POST)
+        print(form)
+        # return HttpResponse("hello")
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Supply Code Saved')
+            return redirect('dashboard')
+
+    form = NewSuppliesClassForm()
+    context={
+        "form": form
+    }
+    return render(request, 'create_supply.html', context)
