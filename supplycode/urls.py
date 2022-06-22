@@ -5,5 +5,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('NewSupplyCode/', views.AddNewLaborClass, name='new_labor_class'),
 
 ]
