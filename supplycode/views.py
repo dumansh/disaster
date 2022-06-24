@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, QueryDict
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView, UpdateView, ListView
@@ -52,7 +52,6 @@ def LaborEditView(request):
 
 def SupplyListView(request):
     supplies = Supply.objects.all()
-    print(supplies[0])
     context = {
         "supplies": supplies
     }
@@ -74,3 +73,28 @@ def SupplyCreate(request):
         "form": form
     }
     return render(request, 'create_supply.html', context)
+
+def SupplyEdit(request, id):
+    supply = get_object_or_404(Supply, pk=id)
+    if request.method == "POST":
+        form = NewSuppliesClassForm(request.POST, instance=supply)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Supply Code Updated')
+            return redirect('dashboard')
+
+
+    form=NewSuppliesClassForm(instance=supply)
+    context={
+        "form":form
+    }
+    print(form)
+    return render(request, "edit_supply.html",context)
+
+    # form = NewSuppliesClassForm()
+    # context = {
+    #     "form": form
+    # }
+    # return render(request, 'create_supply.html', context)
+

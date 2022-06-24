@@ -11,5 +11,6 @@ urlpatterns = [
 
     path('supply/', views.SupplyListView, name='list_supply'),
     path('supply/create', views.SupplyCreate, name='create_supply'),
+    path('supply/edit/<int:id>', views.SupplyEdit, name='edit_supply')
 
 ]
