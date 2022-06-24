@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
     path('labor/', views.LaborListView, name='list_labor'),
     path('labor/create', views.AddNewLaborClass, name='new_labor_class'),
-    path('labor/edit', views.LaborEditView, name='edit_labor'),
+    path('labor/edit/<int:id>', views.LaborEditView, name='edit_labor'),
 
     path('supply/', views.SupplyListView, name='list_supply'),
     path('supply/create', views.SupplyCreate, name='create_supply'),

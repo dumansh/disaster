@@ -16,7 +16,7 @@
         {% csrf_token %}
             <div class="form-group">
                 <label for="labor_class" class="form-label"> Labor Class: </label>
-                <input type="text" id="labor_class" name="labor_code" value="{{ form.labor_code.value |default_if_none:'' }}"> <br>
+                <input type="text" id="labor_class" name="labor_class" value="{{ form.labor_class.value |default_if_none:'' }}"> <br>
             </div>
             <br>
             <div class="form-group">

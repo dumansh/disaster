@@ -12,42 +12,44 @@ from .models import Labor, Supply
 def AddNewLaborClass(request):
     if request.method == "POST":
         form = NewLaborClassForm(request.POST)
-
+        print(form)
+        # return HttpResponse("hello")
         if form.is_valid():
             form.save()
+            messages.success(request, 'Labor Code Saved')
             return redirect('dashboard')
 
-        form = NewLaborClassForm()
-
-    elif request.method == "GET":
-        form = NewLaborClassForm()
-
-    return render(request, 'add_new_labor_class.html', {'form': form})
+    form = NewLaborClassForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'add_new_labor_class.html', context)
 
 
 def LaborListView(request):
     labors = Labor.objects.all()
-
+    context = {
+        "labors": labors
+    }
     return render(request, 'labor.html', {"labors": labors})
 
 
-def LaborEditView(request):
-    if request.method == "GET":
-        data = request.GET
-        obj = Labor.objects.get()
-        if obj:
-            initial_data = {
-                Labor.labor_class, Labor.billing_code, Labor.default_rates, Labor.active
-            }
-            form = NewLaborClassForm(initial=data)
+def LaborEditView(request, id):
+    labor = get_object_or_404(Labor, pk=id)
+    if request.method == "POST":
+        form = NewLaborClassForm(request.POST, instance=labor)
 
-    elif request.method == "POST":
-        form = NewLaborClassForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list_labor')
+            messages.success(request, 'Labor Code Updated')
+            return redirect('dashboard')
 
-    return render(request, 'labor_edit.html')
+    form = NewLaborClassForm(instance=labor)
+    context = {
+        "form": form
+    }
+    print(form)
+    return render(request, "labor_edit.html", context)
 
 
 def SupplyListView(request):
@@ -74,6 +76,7 @@ def SupplyCreate(request):
     }
     return render(request, 'create_supply.html', context)
 
+
 def SupplyEdit(request, id):
     supply = get_object_or_404(Supply, pk=id)
     if request.method == "POST":
@@ -84,17 +87,15 @@ def SupplyEdit(request, id):
             messages.success(request, 'Supply Code Updated')
             return redirect('dashboard')
 
-
-    form=NewSuppliesClassForm(instance=supply)
-    context={
-        "form":form
+    form = NewSuppliesClassForm(instance=supply)
+    context = {
+        "form": form
     }
     print(form)
-    return render(request, "edit_supply.html",context)
+    return render(request, "edit_supply.html", context)
 
     # form = NewSuppliesClassForm()
     # context = {
     #     "form": form
     # }
     # return render(request, 'create_supply.html', context)
-
