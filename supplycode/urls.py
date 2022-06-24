@@ -5,7 +5,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('NewSupplyCode/', views.AddNewLaborClass, name='new_labor_class'),
+    path('labor/', views.LaborListView, name='list_labor'),
+    path('labor/create', views.AddNewLaborClass, name='new_labor_class'),
+    path('labor/edit', views.LaborEditView, name='edit_labor'),
+
     path('supply/', views.SupplyListView, name='list_supply'),
     path('supply/create', views.SupplyCreate, name='create_supply'),
 

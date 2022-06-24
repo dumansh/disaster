@@ -10,9 +10,7 @@ class Labor(models.Model):
     labor_class = models.CharField(max_length=100, blank=False)
     billing_code = models.CharField(max_length=20, blank=False)
     default_rates = models.IntegerField(blank=False)
-    active = models.CharField(max_length=3, choices=IS_ACTIVE, default='Y')
-
-    disasterLabor = models.Manager()
+    active = models.BooleanField(default=True)
 
 
 class Supply(models.Model):

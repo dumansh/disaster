@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, QueryDict
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -15,7 +15,9 @@ def AddNewLaborClass(request):
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse_lazy('dashboard'))
+            return redirect('dashboard')
+
+        form = NewLaborClassForm()
 
     elif request.method == "GET":
         form = NewLaborClassForm()
@@ -23,52 +25,39 @@ def AddNewLaborClass(request):
     return render(request, 'add_new_labor_class.html', {'form': form})
 
 
-class AddNewwLaborClass(View):
-    form_class = NewLaborClassForm
-    template_name = '/templates/add_new_labor_class.html'
+def LaborListView(request):
+    labors = Labor.objects.all()
 
-    def get(self, request, *args, **kwargs):
-        form = NewLaborClassForm()
-        return render(request.self.template_name, {'form': form})
+    return render(request, 'labor.html', {"labors": labors})
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+
+def LaborEditView(request):
+    if request.method == "GET":
+        data = request.GET
+        obj = Labor.objects.get()
+        if obj:
+            initial_data = {
+                Labor.labor_class, Labor.billing_code, Labor.default_rates, Labor.active
+            }
+            form = NewLaborClassForm(initial=data)
+
+    elif request.method == "POST":
+        form = NewLaborClassForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse_lazy('dashboard'))
+            return redirect('list_labor')
 
-        return render(request, self.template_name, {'form': form})
-
-
-class LaborListView(ListView):
-    model = Labor
-    context_object_name = 'all_labor_class'
-    ordering = ['labor_class']
-    queryset = Labor.disasterLabor.all()
-    template_name = 'dashboard.html'
-
-
-class LaborCreateView(CreateView):
-    model = Labor
-    context_object_name = 'labor'
-    fields = ['labor_class', 'billing_code', 'default_rates', 'active']
-    success_url = reverse_lazy('dashboard')
-
-
-class LaborUpdateView(UpdateView):
-    model = Labor
-    context_object_name = 'labor'
-    fields = ['labor_class', 'billing_code', 'default_rates', 'active']
-    success_url = reverse_lazy('dashboard')
+    return render(request, 'labor_edit.html')
 
 
 def SupplyListView(request):
     supplies = Supply.objects.all()
     print(supplies[0])
-    context={
+    context = {
         "supplies": supplies
     }
-    return render(request, 'supply.html',context)
+    return render(request, 'supply.html', context)
+
 
 def SupplyCreate(request):
     if request.method == "POST":
@@ -81,7 +70,7 @@ def SupplyCreate(request):
             return redirect('dashboard')
 
     form = NewSuppliesClassForm()
-    context={
+    context = {
         "form": form
     }
     return render(request, 'create_supply.html', context)

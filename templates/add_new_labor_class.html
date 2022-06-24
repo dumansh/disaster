@@ -12,29 +12,36 @@
     </div>
 
     <div class="panel-body">
-        <form method="POST">
-            {% csrf_token %}
+        <form method="POST" action="">
+        {% csrf_token %}
             <div class="form-group">
-                <label>Labor Class </label>
-                {{ form.labor_class }}
+                <label for="labor_class" class="form-label"> Labor Class: </label>
+                <input type="text" id="labor_class" name="labor_code" value="{{ form.labor_code.value |default_if_none:'' }}"> <br>
             </div>
             <br>
             <div class="form-group">
-                <label>Billing Code </label>
-                {{ form.billing_code }}
+                <label for="billing_code" class="form-label"> Billing Codes: </label>
+                <input type="text" id="billing_code" name="billing_code" value="{{ form.billing_code.value |default_if_none:'' }}"><br>
             </div>
             <br>
             <div class="form-group">
-                <label>Default Rates</label>
-                {{ form.default_rates }}
+                <label for="default_rates" class="form-label">Default Rates(Hourly): </label>
+                <input type="text" id="default_rates" name="default_rates" value="{{ form.default_rates.value |default_if_none:''}}"><br>
             </div>
             <br>
             <div class="form-group">
-                <label>Active</label>
-                {{ form.active }}
+                <label>
+                <input type="checkbox" name="active"> Active
+                </label>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <input type="button" value="Clear" id="resetBtn" onClick="this.form.reset()" />
+            <br>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
         </form>
     </div>
 
