@@ -20,3 +20,12 @@ class Supply(models.Model):
     billing_code = models.CharField(max_length=20, blank=False)
     default_rates = models.IntegerField(blank=True, null=True)
     active = models.BooleanField(default=True)
+
+
+class Expense(models.Model):
+    IS_ACTIVE = [('Y', 'Yes'),
+                 ('N', 'No'), ]
+    expense_code = models.CharField(max_length=100, blank=False)
+    billing_code = models.CharField(max_length=20, blank=False)
+    default_rates = models.IntegerField(blank=False)
+    active = models.BooleanField(default=True)

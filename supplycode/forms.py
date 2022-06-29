@@ -1,5 +1,5 @@
 from django import forms
-from .models import Labor, Supply
+from .models import Labor, Supply, Expense
 
 
 class NewLaborClassForm(forms.ModelForm):
@@ -14,7 +14,14 @@ class NewSuppliesClassForm(forms.ModelForm):
         fields = ["supply_code", "billing_code", "default_rates", "active"]
 
 
-class NewEquipmentClassForm(forms.Form):
+class NewEquipmentClassForm(forms.ModelForm):
+    pass
+    # class Meta:
+    #    model = Equipment
+    #    fields = ["equipment_code", "billing_code", "default_rates", "active"]
+
+
+class NewExpenseClassForm(forms.ModelForm):
     class Meta:
-        model = Labor
-        fields = ["equipment_class", "billing_code", "default_rates", "active"]
+        model = Expense
+        fields = ["expense_code", "billing_code", "default_rates", "active"]

@@ -1,0 +1,49 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Edit Expense Code{% endblock %}
+
+
+
+{% block content %}
+<div class="panel panel-primary">
+
+    <div class="panel-heading">
+        <h1>Edit Expense Code</h1>
+    </div>
+
+    <div class="panel-body">
+        <form method="POST" action="">
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="expense_code" class="form-label"> Expense Code: </label>
+                <input type="text" id="expense_code" name="expense_code" value="{{ form.expense_code.value |default_if_none:'' }}"> <br>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="billing_code" class="form-label"> Billing Code: </label>
+                <input type="text" id="billing_code" name="billing_code" value="{{ form.billing_code.value |default_if_none:'' }}"><br>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="default_rates" class="form-label">Default Rates(Hourly): </label>
+                <input type="text" id="default_rates" name="default_rates" value="{{ form.default_rates.value |default_if_none:''}}"><br>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>
+                <input type="checkbox" name="active"> Active
+                </label>
+            </div>
+            <br>
+            <input type="button" value="Reset" id="resetBtn" onClick="this.form.reset()" />
+            <br>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Submit Edit</button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+{% endblock content %}

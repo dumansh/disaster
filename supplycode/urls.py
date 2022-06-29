@@ -11,6 +11,10 @@ urlpatterns = [
 
     path('supply/', views.SupplyListView, name='list_supply'),
     path('supply/create', views.SupplyCreate, name='create_supply'),
-    path('supply/edit/<int:id>', views.SupplyEdit, name='edit_supply')
+    path('supply/edit/<int:id>', views.SupplyEdit, name='edit_supply'),
+
+    path('expense/', views.ExpenseListView, name='list_expense'),
+    path('expense/create', views.ExpenseCreate, name='create_expense'),
+    path('expense/edit/<int:id>', views.ExpenseEditView, name='edit_expense')
 
 ]

@@ -5,8 +5,8 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView, UpdateView, ListView
 
-from .forms import NewLaborClassForm, NewSuppliesClassForm
-from .models import Labor, Supply
+from .forms import NewLaborClassForm, NewSuppliesClassForm, NewExpenseClassForm
+from .models import Labor, Supply, Expense
 
 
 def AddNewLaborClass(request):
@@ -99,3 +99,47 @@ def SupplyEdit(request, id):
     #     "form": form
     # }
     # return render(request, 'create_supply.html', context)
+
+
+def ExpenseCreate(request):
+    if request.method == "POST":
+        form = NewExpenseClassForm(request.POST)
+        print(form)
+        # return HttpResponse("hello")
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Expense Code Saved')
+            return redirect('dashboard')
+
+    form = NewExpenseClassForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'create_expense.html', context)
+
+
+def ExpenseListView(request):
+    expenses = Expense.objects.all()
+    context = {
+        "expenses": expenses
+    }
+    return render(request, 'expense.html', {"expenses": expenses})
+
+
+def ExpenseEditView(request, id):
+    expense = get_object_or_404(Expense, pk=id)
+    if request.method == "POST":
+        form = NewExpenseClassForm(request.POST, instance=expense)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Expense Code Updated')
+            return redirect('dashboard')
+
+    form = NewExpenseClassForm(instance=expense)
+    context = {
+        "form": form
+    }
+    print(form)
+    return render(request, "edit_expense.html", context)
+
